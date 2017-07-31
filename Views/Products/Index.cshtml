@@ -1,0 +1,33 @@
+@model Bangazon.Models.ProductViewModels.ProductListViewModel
+
+@{
+    ViewData["Title"] = "Product Listing";
+}
+
+<h2 class="top-buffer">@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Posted</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+@foreach (var product in Model.Products)
+{
+    <tr>
+        <td>
+            <a asp-action="Detail" asp-route-id="@product.ProductId">
+                @Html.DisplayFor(modelItem => product.Title)
+            </a>
+        </td>
+        <td>@Html.DisplayFor(modelItem => product.Description)</td>
+        <td>@Html.DisplayFor(modelItem => product.DateCreated)</td>
+        <td>@Html.DisplayFor(modelItem => product.Price)</td>
+    </tr>
+}
+
+</table>

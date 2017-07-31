@@ -1,0 +1,9 @@
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/bin/Debug/netcoreapp1.0/BangazonAuth.deps.json
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/bin/Debug/netcoreapp1.0/BangazonAuth.runtimeconfig.json
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/bin/Debug/netcoreapp1.0/BangazonAuth.runtimeconfig.dev.json
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/bin/Debug/netcoreapp1.0/BangazonAuth.dll
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/bin/Debug/netcoreapp1.0/BangazonAuth.pdb
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/obj/Debug/netcoreapp1.0/UserSecretsAssemblyInfo.cs
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/obj/Debug/netcoreapp1.0/BangazonAuth.AssemblyInfo.cs
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/obj/Debug/netcoreapp1.0/BangazonAuth.dll
+/Users/stevebrownlee/dev/github/stevebrownlee/bangazon/csharp/BangazonAuth/obj/Debug/netcoreapp1.0/BangazonAuth.pdb
