@@ -91,11 +91,6 @@ namespace Bangazon.Controllers
                     product before adding it to the db _context
                 */
                 var user = await GetCurrentUserAsync();
-                var roles = ((ClaimsIdentity)User.Identity).Claims
-                    .Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => c.Value);
-
-                Console.WriteLine($"roles\n\n\n\n{roles}");
                 product.User = user;
 
                 _context.Add(product);
