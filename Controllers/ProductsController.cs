@@ -112,7 +112,7 @@ namespace Bangazon.Controllers
                     group product by product.ProductTypeId into grouped
                     select new { grouped.Key, myCount = grouped.Count() };
 
-            // Build list of Product instances for display in view
+            // Build list of Product Type instances for display in view
             model.ProductTypes = await (from type in _context.ProductType
                     join a in counter on type.ProductTypeId equals a.Key 
                     select new ProductType {
