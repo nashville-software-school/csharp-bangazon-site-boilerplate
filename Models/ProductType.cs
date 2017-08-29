@@ -14,8 +14,6 @@ namespace Bangazon.Models
     [Display(Name="Category")]
     public string Label { get; set; }
 
-    [NotMapped]
-    public int Quantity { get; set; }
-    public ICollection<Product> Products;
+    public virtual ICollection<Product> Products { get; set; }
   }
 }

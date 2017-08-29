@@ -11,13 +11,10 @@ namespace Bangazon.Models
     [Key]
     public int ProductId {get;set;}
 
-    [NotMapped]
     public int Quantity { get; set; }
-
 
     [Required]
     [DataType(DataType.Date)]
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated {get;set;}
 
     [Required]
@@ -25,28 +22,38 @@ namespace Bangazon.Models
     public string Description { get; set; }
 
     [Required]
-    [StringLength(55)]
+    [StringLength(55, ErrorMessage="Please shorten the product title to 55 characters")]
     public string Title { get; set; }
 
     [Required]
     [DisplayFormat(DataFormatString = "{0:C}")]
+    [NonLuxuryProduct]
     public double Price { get; set; }
 
     [Required]
-    public virtual ApplicationUser User { get; set; }
+    public ApplicationUser User { get; set; }
 
     [Required]
+    [Display(Name="Product Category")]
     public int ProductTypeId { get; set; }
     
-    [Display(Name="Category")]
     public ProductType ProductType { get; set; }
     
-    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-    {
-        if (Price > 10000)
-        {
-            yield return new ValidationResult("Please contact our customer service department to sell something of this value.");
-        }
-    }
+    public virtual ICollection<LineItem> LineItems { get; set; }
+
+  }
+  public class NonLuxuryProductAttribute : ValidationAttribute
+  {
+      protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+      {
+          Product product = (Product)validationContext.ObjectInstance;
+
+          if (product.Price > 10000)
+          {
+              return new ValidationResult("Please contact our customer service department to sell something of this value.");
+          }
+
+          return ValidationResult.Success;
+      }
   }
 }

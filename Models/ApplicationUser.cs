@@ -20,6 +20,6 @@ namespace Bangazon.Models
         [Required]
         public string StreetAddress { get; set; }
         
-        public ICollection<Product> Products;
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

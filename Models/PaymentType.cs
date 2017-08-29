@@ -24,6 +24,6 @@ namespace Bangazon.Models
     public string AccountNumber { get; set; }
 
     [Required]
-    public virtual ApplicationUser User { get; set; }
+    public ApplicationUser User { get; set; }
   }
 }
