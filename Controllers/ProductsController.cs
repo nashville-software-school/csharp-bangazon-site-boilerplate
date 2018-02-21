@@ -33,7 +33,8 @@ namespace Bangazon.Controllers
             ProductListViewModel model = new ProductListViewModel();
 
             // Set the properties of the view model
-            model.Products = await _context.Product.ToListAsync(); 
+            model.Products = await _context.Product.ToListAsync();
+
             return View(model);
         }
 
@@ -49,9 +50,7 @@ namespace Bangazon.Controllers
             ProductDetailViewModel model = new ProductDetailViewModel();
 
             // Set the `Product` property of the view model
-            model.Product = await _context.Product
-                    .Include(prod => prod.User)
-                    .SingleOrDefaultAsync(prod => prod.ProductId == id);
+            model.Product = await _context.Product.Take(1).SingleOrDefaultAsync();
 
             // If product not found, return 404
             if (model.Product == null)
@@ -62,14 +61,50 @@ namespace Bangazon.Controllers
             return View(model); 
         }
 
+        [Authorize]
+        public async Task<IActionResult> Purchase([FromRoute] int id)
+        {
+            // Find the product requested
+            Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
+
+            // Get the current user
+            var user = await GetCurrentUserAsync();
+
+            // Get open order, if exists, otherwise null
+            Order openOrder = null;
+
+            // Didn't find an open order
+            if (openOrder == null)
+            {
+
+                // Create new order
+                Order newOrder = null;
+               _context.Add(newOrder);
+
+                // Create new line item
+                LineItem li = null;
+               _context.Add(li);
+
+            // Open order exists
+            } else {
+
+                // Create new line item
+                LineItem li = null;
+               _context.Add(li);
+
+            }
+
+            // Save all items in the db context
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(OrderController.Index), "Order");
+        }
+
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             ProductCreateViewModel model = new ProductCreateViewModel(_context);
-
-            // Get current user
-            var user = await GetCurrentUserAsync();
 
             return View(model); 
         }
@@ -91,7 +126,8 @@ namespace Bangazon.Controllers
                     product before adding it to the db _context
                 */
                 var user = await GetCurrentUserAsync();
-                product.User = user;
+
+                // TODO: Add the user to the corresponding property of the product
 
                 _context.Add(product);
 
@@ -107,19 +143,20 @@ namespace Bangazon.Controllers
         {
             var model = new ProductTypesViewModel();
 
-            // Get line items grouped by product id, including count
-            var counter = from product in _context.Product
-                    group product by product.ProductTypeId into grouped
-                    select new { grouped.Key, myCount = grouped.Count() };
-
-            // Build list of Product Type instances for display in view
-            model.ProductTypes = await (from type in _context.ProductType
-                    join a in counter on type.ProductTypeId equals a.Key 
-                    select new ProductType {
-                        ProductTypeId = type.ProductTypeId,
-                        Label = type.Label, 
-                        Quantity = a.myCount 
-                    }).ToListAsync();
+            // Build list of Product instances for display in view
+            // LINQ is awesome
+            model.GroupedProducts = await (
+                from t in _context.ProductType
+                join p in _context.Product
+                on t.ProductTypeId equals p.ProductTypeId
+                group new { t, p } by new { t.ProductTypeId, t.Label } into grouped
+                select new GroupedProducts
+                {
+                    TypeId = grouped.Key.ProductTypeId,
+                    TypeName = grouped.Key.Label,
+                    ProductCount = grouped.Select(x => x.p.ProductId).Count(),
+                    Products = grouped.Select(x => x.p).Take(3)
+                }).ToListAsync();
 
             return View(model);
         }

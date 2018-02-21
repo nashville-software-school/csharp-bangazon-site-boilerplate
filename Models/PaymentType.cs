@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,12 +9,12 @@ namespace Bangazon.Models
   public class PaymentType
   {
     [Key]
-    public int PaymentTypeId { get;set; }
+    public int PaymentTypeId { get; set; }
 
     [Required]
     [DataType(DataType.Date)]
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    public DateTime DateCreated { get;set; }
+    public DateTime DateCreated { get; set; }
 
     [Required]
     [StringLength(12)]
@@ -25,5 +26,7 @@ namespace Bangazon.Models
 
     [Required]
     public ApplicationUser User { get; set; }
+
+    public ICollection<Order> Orders { get; set; }
   }
 }

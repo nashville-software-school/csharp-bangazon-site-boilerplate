@@ -2,19 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Bangazon.Models
 {
-  public class Product
+    public class Product
   {
     [Key]
     public int ProductId {get;set;}
 
-    public int Quantity { get; set; }
-
     [Required]
     [DataType(DataType.Date)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated {get;set;}
 
     [Required]

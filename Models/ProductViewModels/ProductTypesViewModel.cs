@@ -6,6 +6,6 @@ namespace Bangazon.Models.ProductViewModels
 {
   public class ProductTypesViewModel
   {
-    public IEnumerable<ProductType> ProductTypes { get; set; }
+    public IEnumerable<GroupedProducts> GroupedProducts { get; set; }
   }
 }

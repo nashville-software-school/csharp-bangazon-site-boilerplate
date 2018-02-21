@@ -17,6 +17,10 @@ textarea {
     max-width: 280px;
 }
 
+.bold {
+    font-weight: 800;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -47,4 +51,40 @@ textarea {
   .carousel-caption {
     display: none
   }
+}
+
+.minicart {
+    display: none;
+    top: 52px;
+    right: 5px;
+    padding: 8px;
+    position: absolute;
+    width: 250px;
+    border: 1px whitesmoke solid;
+    font-size: 1em;
+    background-color: honeydew;
+    z-index: 5;
+}
+
+.minicart__lineitem {
+    margin: 2px 0;
+}
+
+.minicart__quantity {
+    width: 10%;
+    display: inline-block;
+}
+
+.minicart__title {
+    width: 55%;
+    display: inline-block;
+}
+
+.minicart__cost {
+    width: 25%;
+    display: inline-block;
+}
+
+.minicart__detail {
+    margin: 25px 0 0 0;
 }
