@@ -40,6 +40,7 @@ namespace Bangazon.Models
     public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
   }
+
   public class NonLuxuryProductAttribute : ValidationAttribute
   {
       protected override ValidationResult IsValid(object value, ValidationContext validationContext)

@@ -41,10 +41,26 @@ Once your IDE is running, you'll have to update your new `appsettings.json` file
 
 Once your appsettings are updated, you should generate your database.
 
+### From Visual Studio
+
 1. Go to the Package Manager Console in Visual Studio.
 1. Use the `Add-Migration BangazonTables` command.
 1. Once Visual Studio shows you the migration file, execute `Update-Database` to generate your tables.
 1. Use the SQL Server Object Explorer to verify that everything worked as expected.
+
+### From Command Line
+
+```sh
+cd Bangazon
+dotnet ef migrations add Initial -o Data/Migrations
+dotnet ef database update
+```
+
+## Adding Seed Data
+
+To seed your database with some initial data, look in the `Bangazon/Data/ApplicationDbContext.cs` file. Search for the `HasData()` method and you'll see that the project will be seeded with one user, and two payment types for that user.
+
+You will need to add in your own seed data using the same mechanism.
 
 ## Products Grouped by Type
 
