@@ -31,10 +31,10 @@ namespace Bangazon {
             });
 
             services.AddDbContext<ApplicationDbContext> (options =>
-                options.UseSqlServer (
+                options.UseSqlite (
                     Configuration.GetConnectionString ("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole> ()
+            services.AddDefaultIdentity<ApplicationUser> ()
                 .AddEntityFrameworkStores<ApplicationDbContext> ()
                 .AddDefaultTokenProviders ();
 
@@ -54,15 +54,10 @@ namespace Bangazon {
             app.UseHttpsRedirection ();
             app.UseStaticFiles ();
             app.UseCookiePolicy ();
+
             app.UseAuthentication ();
 
             app.UseMvc (routes => {
-                routes.MapRoute ("types", "types",
-                    defaults : new { controller = "Products", action = "Types" });
-
-                routes.MapRoute ("type", "types/{*type}",
-                    defaults : new { controller = "ProductTypes", action = "Detail" });
-
                 routes.MapRoute (
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

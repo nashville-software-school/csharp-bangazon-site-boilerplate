@@ -1,0 +1,25 @@
+{
+  "name": "Bangazon",
+  "homepage": "https://github.com/nashville-software-school/csharp-bangazon-site-boilerplate",
+  "authors": [
+    "Steve Brownlee <chortlehoort@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wwwroot/lib",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "^4.1.3",
+    "jquery": "^3.3.1",
+    "jquery-validation": "^1.18.0",
+    "jquery-validation-unobtrusive": "^3.2.11"
+  }
+}
