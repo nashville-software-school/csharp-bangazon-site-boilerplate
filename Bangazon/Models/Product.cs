@@ -40,19 +40,4 @@ namespace Bangazon.Models
     public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
   }
-
-  public class NonLuxuryProductAttribute : ValidationAttribute
-  {
-      protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-      {
-          Product product = (Product)validationContext.ObjectInstance;
-
-          if (product.Price > 10000)
-          {
-              return new ValidationResult("Please contact our customer service department to sell something of this value.");
-          }
-
-          return ValidationResult.Success;
-      }
-  }
 }
