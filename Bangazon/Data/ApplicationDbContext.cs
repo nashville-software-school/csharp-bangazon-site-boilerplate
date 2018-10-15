@@ -45,7 +45,6 @@ namespace Bangazon.Data {
                 .Property (b => b.DateCreated)
                 .HasDefaultValueSql ("GETDATE()");
 
-
             ApplicationUser user = new ApplicationUser {
                 FirstName = "admin",
                 LastName = "admin",
@@ -62,22 +61,76 @@ namespace Bangazon.Data {
             user.PasswordHash = passwordHash.HashPassword (user, "Admin8*");
             modelBuilder.Entity<ApplicationUser> ().HasData (user);
 
-
             modelBuilder.Entity<PaymentType> ().HasData (
-                new PaymentType() {
+                new PaymentType () {
                     PaymentTypeId = 1,
-                    UserId = user.Id,
-                    Description = "American Express",
-                    AccountNumber = "86753095551212"
+                        UserId = user.Id,
+                        Description = "American Express",
+                        AccountNumber = "86753095551212"
                 },
-                new PaymentType() {
+                new PaymentType () {
                     PaymentTypeId = 2,
-                    UserId = user.Id,
-                    Description = "Discover",
-                    AccountNumber = "4102948572991"
+                        UserId = user.Id,
+                        Description = "Discover",
+                        AccountNumber = "4102948572991"
                 }
             );
 
+            modelBuilder.Entity<ProductType> ().HasData (
+                new ProductType () {
+                    ProductTypeId = 1,
+                        Label = "Sporting Goods"
+                },
+                new ProductType () {
+                    ProductTypeId = 2,
+                        Label = "Appliances"
+                }
+            );
+
+            modelBuilder.Entity<Product> ().HasData (
+                new Product () {
+                    ProductId = 1,
+                        ProductTypeId = 1,
+                        UserId = user.Id,
+                        Description = "It flies high",
+                        Title = "Kite",
+                        Quantity = 100,
+                        Price = 2.99
+                },
+                new Product () {
+                    ProductId = 2,
+                        ProductTypeId = 2,
+                        UserId = user.Id,
+                        Description = "It rolls fast",
+                        Title = "Wheelbarrow",
+                        Quantity = 5,
+                        Price = 29.99
+                }
+            );
+
+            modelBuilder.Entity<Order> ().HasData (
+                new Order () {
+                    OrderId = 1,
+                    UserId = user.Id,
+                    PaymentTypeId = null
+                }
+            );
+
+            modelBuilder.Entity<OrderProduct> ().HasData (
+                new OrderProduct () {
+                    OrderProductId = 1,
+                    OrderId = 1,
+                    ProductId = 1
+                }
+            );
+
+            modelBuilder.Entity<OrderProduct> ().HasData (
+                new OrderProduct () {
+                    OrderProductId = 2,
+                    OrderId = 1,
+                    ProductId = 2
+                }
+            );
 
         }
     }
