@@ -5,6 +5,13 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Bangazon.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace BangazonTests
 {
@@ -53,41 +60,5 @@ namespace BangazonTests
             Assert.Equal("text/html; charset=utf-8",
                 response.Content.Headers.ContentType.ToString());
         }
-
-        [Fact]
-        public async Task Post_Product_Get_ListContainsProduct()
-        {
-            // Arrange
-            var _client = _factory.CreateClient();
-
-            var formData = new Dictionary<string, string>
-              {
-                {"Description", "It tastes yummy"},
-                {"Title", "Lollipop"},
-                {"Price", "1.99"},
-                {"Quantity", "149"},
-                {"ProductType", "1"}
-              };
-
-            HttpRequestMessage postRequest = new HttpRequestMessage(HttpMethod.Post, "/Products/Create")
-            {
-                Content = new FormUrlEncodedContent(formData)
-            };
-
-            //Act
-            var post = await _client.SendAsync(postRequest);
-            var response = await _client.GetAsync("/Products");
-            var content = await response.Content.ReadAsStringAsync();
-
-            // Assert
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Matches("Lollipop", content);
-            Assert.Matches("It tastes yummy", content);
-            Assert.Matches("149", content);
-            Assert.Matches("1.99", content);
-            Assert.Equal("text/html; charset=utf-8",
-                response.Content.Headers.ContentType.ToString());
-        }
-
     }
 }
