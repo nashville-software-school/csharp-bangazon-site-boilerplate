@@ -8,36 +8,94 @@ Make sure you look in the `DbInitializer` class to see the product types that ar
 
 ## Setup
 
-After cloning this repository, use the following commands to get everything installed.
+> **Pick on person from your team to follow these steps. No one else should touch anything at this point.**
 
-```sh
-cd Bangazon
-dotnet restore
-cp appsettings.json.template appsettings.json
-```
 
-Now go back up to the main directory and start Visual Studio with the solution file.
+### Git and SQL Server Configuration
 
-```sh
-cd ..
-start Bangazon.sln
-```
-
-Once your IDE is running, you'll have to update your new `appsettings.json` file with the following content. Update to your SQL Server name.
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=YourServerHere\\SQLEXPRESS;Database=BangazonSite;Trusted_Connection=True;"
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Warning"
+1. Clone this repository to your machine.
+1. Create a new repository on your team's Github organization named `BangazonSite`.
+1. Copy the connection string for your repo.
+1. From your project directory, execute the following commands
+    ```sh
+    git remote remove origin
+    git remote add origin <paste Github URL here>
+    ```
+1. Push up the master branch to your new remote origin
+1. Create a branch named `initial-setup`.
+1. Go into the project directory and set up your appsettings
+    ```sh
+    cd Bangazon
+    dotnet restore
+    cp appsettings.json.template appsettings.json
+    ```
+1. Open Visual Studio and load the solution file
+1. Once your IDE is running, you'll have to update your new `appsettings.json` file with the following content. Update to your SQL Server name.
+    ```json
+    {
+      "ConnectionStrings": {
+        "DefaultConnection": "Server=YourServerHere\\SQLEXPRESS;Database=BangazonSite;Trusted_Connection=True;"
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Warning"
+        }
+      },
+      "AllowedHosts": "*"
     }
-  },
-  "AllowedHosts": "*"
-}
+    ```
+
+### Seeding the Database
+
+You will want to seed your database with some default values. Open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will the the following code.
+
+```cs
+modelBuilder.Entity<PaymentType> ().HasData (...)
 ```
+
+The `HasData()` method lets you create one, or more, instances of a database model. Those instances will be turned into `INSERT INTO` SQL statements when you generate a migration either through the Package Manager Console with `Add-Migration MigrationName` or through the command line with `dotnet ef migrations add MigrationName`.
+
+The boilerplate project has one user, two payment types, two product types, two products, one order, and two products on the order set up for you already.
+
+Review that code with your team and if the team decides that they want more seeded data, add the new objects now.
+
+### Generating the Database
+
+Once your appsettings are updated and you've entered in some seed data, you should generate your database.
+
+1. Go to the Package Manager Console in Visual Studio.
+1. Use the `Add-Migration BangazonTables` command.
+1. Once Visual Studio shows you the migration file, execute `Update-Database` to generate your tables.
+1. Use the SQL Server Object Explorer to verify that everything worked as expected.
+
+### Submit a PR
+
+Push up your branch and submit a PR that your team lead will review and approve. No one else on the team can merge this PR until your team lead approves it.
+
+## Setup for Everyone
+
+Once the initial setup is complete by the volunteer and the PR is approved by your team lead, the PR will get merged into master and now everyone else can pull the repository.
+
+1. Open Visual Studio and load the solution file
+1. Once your IDE is running, you'll have to update your new `appsettings.json` file with the following content. Update to your SQL Server name.
+    ```json
+    {
+      "ConnectionStrings": {
+        "DefaultConnection": "Server=YourServerHere\\SQLEXPRESS;Database=BangazonSite;Trusted_Connection=True;"
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Warning"
+        }
+      },
+      "AllowedHosts": "*"
+    }
+    ```
+1. Go to the Package Manager Console in Visual Studio.
+1. Execute `Update-Database` to generate your tables.
+1. Use the SQL Server Object Explorer to verify that everything worked as expected.
+
+## References for Tickets
 
 One of the features you need to implement is a view that displays all of the product types as headers, with the first three products in that type listed beneath it. We are providing you a LINQ statement that will get you started.
 
@@ -84,33 +142,3 @@ One of the features you must implement is allowing customers to add products to 
 ModelState.Remove("product.User");
 ```
 
-## Seeding the Database
-
-If you want to seed your database with some default values, open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will the the following code.
-
-```cs
-modelBuilder.Entity<PaymentType> ().HasData (...)
-```
-
-The `HasData()` method lets you create one, or more, instances of a database model. Those instances will be turned into `INSERT INTO` SQL statements when you generate a migration either through the Package Manager Console with `Add-Migration MigrationName` or through the command line with `dotnet ef migrations add MigrationName`.
-
-You've been given a user and two payment types for that user to start with. Feel free to generate other users, some product types, products, and orders. Once you defined some, generate a migration and udpate the database.
-
-## Generating the Database
-
-Once your appsettings are updated and you've entered in some seed data, you should generate your database.
-
-### From Visual Studio
-
-1. Go to the Package Manager Console in Visual Studio.
-1. Use the `Add-Migration BangazonTables` command.
-1. Once Visual Studio shows you the migration file, execute `Update-Database` to generate your tables.
-1. Use the SQL Server Object Explorer to verify that everything worked as expected.
-
-### From Command Line
-
-```sh
-cd Bangazon
-dotnet ef migrations add BangazonTables -o Data/Migrations
-dotnet ef database update
-```
