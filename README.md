@@ -19,35 +19,15 @@ Make sure you look in the `DbInitializer` class to see the product types that ar
 1. From your project directory, execute the following commands
     ```sh
     git remote remove origin
-    git remote add origin <paste Github URL here>
+    git remote add origin <paste your new Github URL here>
     ```
 1. Push up the master branch to your new remote origin
 1. Create a branch named `initial-setup`.
-1. Go into the project directory and set up your appsettings
-    ```sh
-    cd Bangazon
-    dotnet restore
-    cp appsettings.json.template appsettings.json
-    ```
 1. Open Visual Studio and load the solution file
-1. Once your IDE is running, you'll have to update your new `appsettings.json` file with the following content. Update to your SQL Server name.
-    ```json
-    {
-      "ConnectionStrings": {
-        "DefaultConnection": "Server=YourServerHere\\SQLEXPRESS;Database=BangazonSite;Trusted_Connection=True;"
-      },
-      "Logging": {
-        "LogLevel": {
-          "Default": "Warning"
-        }
-      },
-      "AllowedHosts": "*"
-    }
-    ```
 
 ### Seeding the Database
 
-You will want to seed your database with some default values. Open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will the the following code.
+You will want to seed your database with some default values. Open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will find the the following code.
 
 ```cs
 modelBuilder.Entity<PaymentType> ().HasData (...)
@@ -77,20 +57,6 @@ Push up your branch and submit a PR that your team lead will review and approve.
 Once the initial setup is complete by the volunteer and the PR is approved by your team lead, the PR will get merged into master and now everyone else can pull the repository.
 
 1. Open Visual Studio and load the solution file
-1. Once your IDE is running, you'll have to update your new `appsettings.json` file with the following content. Update to your SQL Server name.
-    ```json
-    {
-      "ConnectionStrings": {
-        "DefaultConnection": "Server=YourServerHere\\SQLEXPRESS;Database=BangazonSite;Trusted_Connection=True;"
-      },
-      "Logging": {
-        "LogLevel": {
-          "Default": "Warning"
-        }
-      },
-      "AllowedHosts": "*"
-    }
-    ```
 1. Go to the Package Manager Console in Visual Studio.
 1. Execute `Update-Database` to generate your tables.
 1. Use the SQL Server Object Explorer to verify that everything worked as expected.
