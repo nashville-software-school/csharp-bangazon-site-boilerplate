@@ -19,7 +19,7 @@ Make sure you look in the `DbInitializer` class to see the product types that ar
 1. From your project directory, execute the following commands
     ```sh
     git remote remove origin
-    git remote add origin <paste Github URL here>
+    git remote add origin <paste your new Github URL here>
     ```
 1. Push up the master branch to your new remote origin
 1. Create a branch named `initial-setup`.
