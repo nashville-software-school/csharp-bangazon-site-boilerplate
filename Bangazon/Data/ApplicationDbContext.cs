@@ -46,8 +46,8 @@ namespace Bangazon.Data {
                 .HasDefaultValueSql ("GETDATE()");
 
             ApplicationUser user = new ApplicationUser {
-                FirstName = "admin",
-                LastName = "admin",
+                FirstName = "Admina",
+                LastName = "Straytor",
                 StreetAddress = "123 Infinity Way",
                 UserName = "admin@admin.com",
                 NormalizedUserName = "ADMIN@ADMIN.COM",
