@@ -11,6 +11,7 @@ namespace Bangazon.Models
         {
              
         }
+        private readonly UserManager<ApplicationUser> _userManager;
 
         [Required]
         [Display(Name ="First Name")]
