@@ -173,3 +173,27 @@ One of the features you must implement is allowing customers to add products to 
 ModelState.Remove("product.User");
 ```
 
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+13 : User can view product detail
+10 : User can select product category when selling product
+11 : User can view all product categories
+12 : User can view all products that are of a particular product type
+18 : User can view latest products on home page
+7 : User can add a payment type
+8 : User can delete a payment type
+4 : User can search products to buy
+19 : User can remove a product listing
+36 : User can see a report of customers with more than one order
+37 : User can see report of top 5 product types occurring most on incomplete orders
+38 : User can see products and their type on incomplete orders
+5 : User can search for local products
+6 : User can delete product from shopping cart
+9 : User can cancel an order
+25 : Expiration date cannot be in the past
+14 : User can upload a photo of the product
+16 : User can view order history
+28 : Product search includes image
+24 : Product price cannot exceed $10k
+15 : User can view status of products uploaded
+21 : User can rate product after purchase. Seller can see average.
+22 : User can like or dislike products
