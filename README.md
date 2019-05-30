@@ -173,7 +173,8 @@ One of the features you must implement is allowing customers to add products to 
 ModelState.Remove("product.User");
 ```
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+## Specific Instructions
+
 13 : User can view product detail
 10 : User can select product category when selling product
 11 : User can view all product categories
