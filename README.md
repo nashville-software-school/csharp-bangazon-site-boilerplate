@@ -174,7 +174,7 @@ ModelState.Remove("product.User");
 ```
 
 ## Specific Instructions
-
+```
 13 : User can view product detail
 10 : User can select product category when selling product
 11 : User can view all product categories
@@ -197,4 +197,4 @@ ModelState.Remove("product.User");
 24 : Product price cannot exceed $10k
 15 : User can view status of products uploaded
 21 : User can rate product after purchase. Seller can see average.
-22 : User can like or dislike products
+22 : User can like or dislike products```
