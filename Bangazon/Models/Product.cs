@@ -37,7 +37,6 @@ namespace Bangazon.Models
 
     public string ImagePath {get; set;}
 
-    [Required]
     public ApplicationUser User { get; set; }
 
     [Required]
@@ -48,5 +47,6 @@ namespace Bangazon.Models
 
     public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
+      
   }
 }

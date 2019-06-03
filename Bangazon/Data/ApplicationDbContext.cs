@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Bangazon.Data {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) { }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
