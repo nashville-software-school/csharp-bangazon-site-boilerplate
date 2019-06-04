@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bangazon.Controllers
 {
@@ -26,6 +27,7 @@ namespace Bangazon.Controllers
         }
 
         // GET: PaymentTypes
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.PaymentType.Include(p => p.User);
@@ -33,6 +35,7 @@ namespace Bangazon.Controllers
         }
 
         // GET: PaymentTypes/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
