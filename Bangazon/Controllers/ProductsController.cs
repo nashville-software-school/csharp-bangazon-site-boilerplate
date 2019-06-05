@@ -34,15 +34,7 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> SpecificTypeIndex(Type ProductType)
-        {
-            var applicationDbContext = _context.Product
-                //.Where(p == p.ProductType)
-                .Include(p => p.ProductType)
-                .Include(p => p.User)
-                .OrderBy(p => p.DateCreated);
-            return View(await applicationDbContext.ToListAsync());
-        }
+ 
 
 
 
