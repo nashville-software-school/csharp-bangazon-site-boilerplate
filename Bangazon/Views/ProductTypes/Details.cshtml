@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Label</h1>
 
 <div>
     <h4>ProductType</h4>
@@ -16,6 +16,31 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Label)
         </dd>
+       <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Products)
+        </dt>
+            
+        <dd class="col-sm-10">
+            <table class="table">
+                <tr>
+                    <th>Products</th>
+                </tr>
+                @foreach (var item in Model.Products)
+                {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+                }
+            </table>
+        </dd>
+
+
+
     </dl>
 </div>
 {

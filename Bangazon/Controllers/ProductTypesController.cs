@@ -29,6 +29,15 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            var productTypes = _context.ProductType
+                .Select(pt => new ProductType()
+                {
+                    Products = pt.Products
+                    .OrderByDescending(p => p.DateCreated)
+                    .Take(3).ToList(),
+                    Label = pt.Label,
+                    ProductTypeId = pt.ProductTypeId
+                });
             return View(await _context.ProductType.ToListAsync());
         }
 
@@ -41,7 +50,8 @@ namespace Bangazon.Controllers
             }
 
             var productType = await _context.ProductType
-                .FirstOrDefaultAsync(m => m.ProductTypeId == id);
+                .Include(t => t.Products)
+                .SingleOrDefaultAsync(m => m.ProductTypeId == id);
             if (productType == null)
             {
                 return NotFound();
