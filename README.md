@@ -1,4 +1,4 @@
-# Welcome to Bangazon!
+    # Welcome to Bangazon!
 
 ## Overview
 
@@ -12,10 +12,10 @@ It shows how to remove a model's property from the automatic model binding in a 
 
 ### Option 1: Github Classroom
 
-If your instructor choose to use Github Classroom, you will all be given an invitation link.
+If your instructor chooses to use Github Classroom, you will all be given an invitation link.
 
 1. The chosen person will click the link and create the team.
-2. On that process is complete and the repository is created, everyone else joins their team.
+2. Once that process is complete and the repository is created, everyone else joins their team.
 1. Notify your instructor that the repository is created so that your issue tickets can be generated.
 1. The chosen person will clone the team's repository to their machine. **No one else should**.
 1. Create a branch named `initial-setup`.
@@ -39,7 +39,7 @@ If your instructor choose to use Github Classroom, you will all be given an invi
 
 ### Seeding the Database
 
-You will want to seed your database with some default values. Open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will find the the following code.
+You will want to seed your database with some default values. Open the `ApplicationDbContext.cs` file and scroll all the way to the bottom. You will find the following code.
 
 ```cs
 modelBuilder.Entity<PaymentType> ().HasData (...)
@@ -51,18 +51,16 @@ The `HasData()` method lets you create one, or more, instances of a database mod
 Add-Migration MigrationName
 ```
 
-The boilerplate project has one user, two payment types, two product types, two products, one order, and two products on the order set up for you already.
-
-Review that code with your team and if the team decides that they want more seeded data, add the new objects now.
+The boilerplate project has existing seed data. Review that code with your team and if the team decides that they want more seeded data, add the new objects now.
 
 ### Generating the Database
 
-Once your appsettings are updated and you've entered in some seed data, you should generate your database.
+Once your appsettings are updated and you're satisfied with your seed data, you should generate your database.
 
 1. Go to the Package Manager Console in Visual Studio.
 1. Use the `Add-Migration BangazonTables` command.
 1. Once Visual Studio shows you the migration file, execute `Update-Database` to generate your tables.
-1. Use the Azure Data Studio to verify that everything worked as expected.
+1. Connect to your database to verify that all tables were created and data was added as expected.
 
 ### Submit a PR
 
@@ -70,12 +68,12 @@ Push up your branch and submit a PR that your team lead will review and approve.
 
 ## Setup for Everyone
 
-Once the initial setup is complete by the volunteer and the PR is approved by your team lead, the PR will get merged into master and now everyone else can pull the repository.
+Once the initial setup is completed by the volunteer and the PR is approved by your team lead, the PR will get merged into master and now everyone else can pull the repository.
 
 1. Open Visual Studio and load the solution file
 1. Go to the Package Manager Console in Visual Studio.
 1. Execute `Update-Database` to generate your tables.
-1. Use the SQL Server Object Explorer to verify that everything worked as expected.
+1. Connect to your database to verify that all tables were created and data was added as expected.
 
 ## References for Tickets
 
@@ -130,37 +128,26 @@ public async Task<IActionResult> Purchase([FromRoute] int id)
 
 One of the features you need to implement is a view that displays all of the product types as headers, with the first three products in that type listed beneath it. We are providing you a LINQ statement that will get you started.
 
-Whomever tackles that ticket, this is the method that you will need to add to your `ProductsController.cs`.
+Whomever tackles that ticket, this is the method that you will need to add to your controller.
 
 ```cs
+
 public async Task<IActionResult> Types()
 {
     var model = new ProductTypesViewModel();
 
-    // Build list of Product instances for display in view
-    // LINQ is awesome
-    model.GroupedProducts = await (
-        from t in _context.ProductType
-        join p in _context.Product
-        on t.ProductTypeId equals p.ProductTypeId
-        group new { t, p } by new { t.ProductTypeId, t.Label } into grouped
-        select new GroupedProducts
+    model.Types = await _context
+        .ProductType
+        .Select(pt => new TypeWithProducts()
         {
-            TypeId = grouped.Key.ProductTypeId,
-            TypeName = grouped.Key.Label,
-            ProductCount = grouped.Select(x => x.p.ProductId).Count(),
-            Products = grouped.Select(x => x.p).Take(3)
+            TypeId = pt.ProductTypeId,
+            TypeName = pt.Label,
+            ProductCount = pt.Products.Count(),
+            Products = pt.Products.OrderByDescending(p => p.DateCreated).Take(3)
         }).ToListAsync();
 
     return View(model);
 }
-```
-
-In addition to that, add the following custom route to the bottom of your `Startup.cs` file.
-
-```cs
-routes.MapRoute ("types", "types",
-    defaults : new { controller = "Products", action = "Types" });
 ```
 
 ## Removing Items from Model Validation
@@ -172,4 +159,3 @@ One of the features you must implement is allowing customers to add products to 
 // not information posted in the form
 ModelState.Remove("product.User");
 ```
-
