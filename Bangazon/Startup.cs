@@ -30,7 +30,7 @@ namespace Bangazon
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
 
